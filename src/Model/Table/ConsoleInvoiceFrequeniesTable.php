@@ -1,0 +1,75 @@
+<?php
+namespace App\Model\Table;
+
+use Cake\ORM\Query;
+use Cake\ORM\RulesChecker;
+use Cake\ORM\Table;
+use Cake\Validation\Validator;
+
+/**
+ * Industry Model
+ *
+ * @property \App\Model\Table\BusinessesTable|\Cake\ORM\Association\BelongsTo $Businesses
+ *
+ * @method \App\Model\Entity\Industry get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Industry newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Industry[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Industry|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Industry|bool saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Industry patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Industry[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Industry findOrCreate($search, callable $callback = null, $options = [])
+ */
+class ConsoleInvoiceFrequeniesTable extends Table
+{
+
+    /**
+     * Initialize method
+     *
+     * @param array $config The configuration for the Table.
+     * @return void
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+
+        $this->setTable('console_invoice_frequenies');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
+
+       
+    }
+
+    /**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator)
+    {
+        $validator
+            ->integer('id')
+            ->allowEmpty('id', 'create');
+
+        $validator
+            ->scalar('invoice_frequency_name')
+            ->maxLength('invoice_frequency_name', 30)
+            ->allowEmpty('invoice_frequency_name');
+
+        $validator
+            ->requirePresence('status', 'create')
+            ->notEmpty('status');
+
+        return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+   
+}
